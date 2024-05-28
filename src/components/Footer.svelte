@@ -4,6 +4,7 @@
 	import ClockCounterClockwise from 'phosphor-svelte/lib/ClockCounterClockwise';
 </script>
 
+<!--
 <footer class="footer footer-center p-10 bg-base-100 border-t-2">
 	<div>
 		<span class="text-primary"
@@ -28,3 +29,4 @@
 		</div>
 	</div>
 </footer>
+-->
