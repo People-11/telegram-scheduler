@@ -15,8 +15,8 @@
 	} from '../store.js';
 	import Redirect from './Redirect.svelte';
 
-	let apiID = '24690244';
-	let apiHash = '4dd5591360de775be460f2ebecb3bf1c';
+	let apiID = '4';
+	let apiHash = '014b35b6184100b085b0d0572f9b5103';
 	let phoneNumber = '';
 
 	const logIn = async () => {
