@@ -40,7 +40,7 @@
 		</div>
 	{/if}
 
-	<div class="break-words leading-6 text-sm mt-1.5" dir="auto">
+	<div class="text-secondary leading-6 text-sm mt-1.5" dir="auto">
 		<slot />
 	</div>
 

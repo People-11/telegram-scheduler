@@ -94,7 +94,7 @@
 			<div class="flex flex-col items-center basis-1/2 gap-4 justify-center">
 				<div class="form-control w-full max-w-sm">
 					<label class="label" for="lineSeparator">
-						<span class="label-text">تقسيم الملف حسب كل سطر يبدأ ب: </span>
+						<span class="label-text">分割消息字符</span>
 					</label>
 					<input
 						class="input input-sm input-primary w-full max-w-sm"
@@ -108,9 +108,9 @@
 				<div class="form-control w-full max-w-sm">
 					<label class="label" for="lineSeparator">
 						{#if !selectedFile}
-							<span class="label-text">اختر ملفًا لبدء الجدولة: </span>
+							<span class="label-text">选择包含待发送消息的文件</span>
 						{:else}
-							<span class="label-text">لقد اخترت ملف: </span>
+							<span class="label-text">已选择文件</span>
 						{/if}
 					</label>
 					<input
@@ -124,9 +124,7 @@
 						class="btn btn-sm btn-primary btn-outline text-base-100 gap-2 normal-case"
 						on:click={() => document.getElementById('filesInput').click()}
 					>
-						{#if !selectedFile}
-							اختر ملفًا نصيًا
-						{/if}
+						{#if !selectedFile}选择文本文件{/if}
 						<FileText size="24" />
 						{#if selectedFile}
 							<span>{selectedFile}</span>
@@ -134,12 +132,10 @@
 					</button>
 				</div>
 				<div class="form-control w-full max-w-sm">
-					<span class="label-text">اختر محادثة تيليجرام</span>
-					<span class="label-text mb-2 text-xs"
-						>(لا يمكن إرسال رسائل إلا إلى القنوات والمجموعات):</span
-					>
+					<span class="label-text">选择 Telegram 聊天</span>
+					<span class="label-text mb-2 text-xs">(信息只能发送到频道和群组)</span>
 					{#await telegram.getAllChats()}
-						<p>تحميل المحادثات...</p>
+						<p>下载对话...</p>
 					{:then chats}
 						<select
 							bind:value={selectedChat}
@@ -156,7 +152,7 @@
 				<div class="flex sm:flex-nowrap flex-wrap items-end gap-2">
 					<div class="form-control">
 						<label class="label" for="messagePrefix">
-							<span class="label-text">إضافة نص قبل الرسالة: </span>
+							<span class="label-text">在信息前添加文本：</span>
 						</label>
 						<textarea
 							id="messagePrefix"
@@ -168,7 +164,7 @@
 					</div>
 					<div class="form-control">
 						<label class="label" for="messageSuffix">
-							<span class="label-text">إضافة نص بعد الرسالة: </span>
+							<span class="label-text">在信息后添加文本： </span>
 						</label>
 						<textarea
 							id="messageSuffix"
@@ -182,7 +178,7 @@
 				<div class="flex sm:flex-nowrap flex-wrap items-end w-full gap-2">
 					<div class="form-control">
 						<label class="label" for="scheduleStartDate">
-							<span class="label-text">تاريخ بداية النشر: </span>
+							<span class="label-text">发送日期：</span>
 						</label>
 						<input
 							id="scheduleStartDate"
@@ -194,7 +190,7 @@
 					</div>
 					<div class="form-control">
 						<label class="label" for="scheduleStartTime">
-							<span class="label-text">توقيت بداية النشر حاليا: </span>
+							<span class="label-text">开始设置时间：</span>
 						</label>
 						<input
 							id="scheduleStartTime"
@@ -208,7 +204,7 @@
 				<div class="flex sm:flex-nowrap flex-wrap items-end w-full gap-2">
 					<div class="form-control">
 						<label class="label" for="scheduleInterval">
-							<span class="label-text">الفاصل بين الرسائل بالدقائق: </span>
+							<span class="label-text">间隔时间 (分钟)：</span>
 						</label>
 						<input
 							id="scheduleInterval"
@@ -220,7 +216,7 @@
 					</div>
 					<div class="form-control">
 						<label class="label" for="scheduleStopTime">
-							<span class="label-text">إيقاف النشر بعد الساعة: </span>
+							<span class="label-text">停止发送时间：</span>
 						</label>
 						<input
 							id="scheduleStopTime"
@@ -232,7 +228,7 @@
 					</div>
 					<div class="form-control">
 						<label class="label" for="scheduleNewDayStartTime">
-							<span class="label-text">بدء النشر مجددا بعد الساعة: </span>
+							<span class="label-text">开始发送时间：</span>
 						</label>
 						<input
 							id="scheduleNewDayStartTime"
@@ -244,32 +240,31 @@
 					</div>
 				</div>
 				{#if isDone}
-					<button class="btn btn-primary text-base-100" on:click={resetApp}>البدء من جديد</button>
+					<button class="btn btn-primary text-base-100" on:click={resetApp}>重新开始</button>
 				{:else if isSending}
-					<button class="btn btn-warning text-base-100">ترسل الرسائل الآن. انتظر قليلا.</button>
+					<button class="btn btn-warning text-base-100">设置定时发送中…</button>
 				{:else}
 					<button
 						class="btn btn-primary text-base-100"
 						on:click={async () => {
 							isSending = true;
 							await telegram.batchSendMessage($textMessages, selectedChatID);
-							showToast('أرسلت الرسائل بنجاح!');
+							showToast('设置完成！');
 							isSending = false;
 							isDone = true;
 						}}
-					>
-						إرسال</button
+					>发送</button
 					>
 				{/if}
 			</div>
 			<div class="divider divider-horizontal" />
 			<div class="flex flex-col basis-1/2 items-center justify-center overflow-y-auto">
 				{#if isEmpty($textMessages)}
-					<span class="sm:p-32 p-8 border-4 mt-4">هنا ستظهر الرسائل بعد اختيار ملف.</span>
+					<span class="sm:p-32 p-8 border-4 mt-4">选择文件后，信息就会在这里显示</span>
 				{/if}
 				{#if selectedFile}
 					<span class="py-3 self-start"
-						>الرسائل الموجودة في ملف<strong class="mr-1">{selectedFile}</strong>:</span
+						>文件中的消息<strong class="mr-1">{selectedFile}</strong>:</span
 					>
 				{/if}
 				{#if $textMessages}

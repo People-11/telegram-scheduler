@@ -15,8 +15,8 @@
 	} from '../store.js';
 	import Redirect from './Redirect.svelte';
 
-	let apiID = '';
-	let apiHash = '';
+	let apiID = '24690244';
+	let apiHash = '4dd5591360de775be460f2ebecb3bf1c';
 	let phoneNumber = '';
 
 	const logIn = async () => {
@@ -33,7 +33,7 @@
 			signedIn = await telegram.newSignIn(phoneNumber);
 		}
 		if (signedIn) {
-			showToast('سجل الدخول بنجاح!');
+			showToast('登录成功!');
 			if (isEmpty($telegramStringSession)) {
 				// Save to store
 				telegramApiID.set(apiID);
@@ -43,13 +43,13 @@
 			telegramUser.set(await telegram.getMe());
 			isAuthenticated.set(true);
 		} else {
-			showToast('فشل تسجيل الدخول!');
+			showToast('登录失败');
 		}
 		return signedIn;
 	};
 
 	const logOutAndShowToast = () => {
-		showToast('سجل الخروج بنجاح!', logOutCompletely);
+		showToast('已注销!', logOutCompletely);
 	};
 </script>
 
@@ -59,35 +59,35 @@
 			<div class="form-control">
 				<label class="label" for="apiID">
 					<span class="label-text">API ID</span>
-					<span class="badge badge-secondary">مطلوب</span>
+					<span class="badge badge-secondary">必填</span>
 				</label>
 				<input
 					name="apiID"
 					type="text"
-					placeholder="000000"
+					placeholder="00000000"
 					class="input input-primary input-bordered"
 					bind:value={apiID}
 				/>
-				<span class="label label-text-alt">معرف واجهة برمجة تيليجرام للحساب الشخصي.</span>
+				<span class="label label-text-alt">Telegram API ID</span>
 			</div>
 			<div class="form-control">
 				<label class="label" for="apiHash">
 					<span class="label-text">API Hash</span>
-					<span class="badge badge-secondary">مطلوب</span>
+					<span class="badge badge-secondary">必填</span>
 				</label>
 				<input
 					name="apiHash"
-					type="password"
-					placeholder="xxxxxxxxxxxxxxxxx"
+					type="text"
+					placeholder="xxxxxxxxxxxxxxxx"
 					class="input input-primary input-bordered"
 					bind:value={apiHash}
 				/>
-				<span class="label label-text-alt">الهاش الخاص بواجهة برمجة تيليجرام للحساب الشخصي.</span>
+				<span class="label label-text-alt">Telegram API Hash</span>
 			</div>
 			<div class="form-control">
 				<label class="label" for="phone">
-					<span class="label-text">رقم الهاتف</span>
-					<span class="badge badge-secondary">مطلوب</span>
+					<span class="label-text">手机号</span>
+					<span class="badge badge-secondary">必填</span>
 				</label>
 				<input
 					name="phone"
@@ -97,27 +97,25 @@
 					class="input input-primary input-bordered self-end"
 					bind:value={phoneNumber}
 				/>
-				<span class="label label-text-alt">رقم هاتف حساب تيليجرام بالتنسيق الدولي.</span>
+				<span class="label label-text-alt">国际格式的 Telegram 手机号</span>
 			</div>
 			<span class="label-text-alt mt-6"
-				>سيتم حفظ بيانات تسجيل الدخول واستخدامها في المرات القادمة.</span
+				>你的登录信息仅被保存在本地</span
 			>
 		{:else}
 			<span class="label text-center"
-				>لقد سجلت الدخول سابقا. اضغط للتسجيل بواسطة البيانات المحفوظة.<br />أو سجل الخروج للتسجيل
-				ببيانات مختلفة.</span
+				>你已经登录<br />或者退出登录</span
 			>
 		{/if}
 		<div class="form-control my-6">
-			<button on:click={logIn} class="btn btn-primary mb-4">تسجيل الدخول</button>
+			<button on:click={logIn} class="btn btn-primary mb-4">进入</button>
 			{#if $isLoggedOut}
-				<button on:click={logOutAndShowToast} class="btn btn-warning">تسجيل الخروج</button>
+				<button on:click={logOutAndShowToast} class="btn btn-warning">注销</button>
 			{/if}
 		</div>
 	</div>
 {:else}
-	<aside class="label block text-center">
-		يعاد توجهيك الآن... <a class="text-primary" href="/app">اضغط هنا إذا لم تحول تلقائيا.</a>
+	<aside class="label block text-center">正在加载…<a class="text-primary" href="/app">如果长时间无法加载，请点这里</a>
 	</aside>
 {/if}
 <Redirect url="/app/" condition={isLoggedIn} timeout="2100" />

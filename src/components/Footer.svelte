@@ -9,12 +9,11 @@
 		<span class="text-primary"
 			><ClockCounterClockwise size={48} weight="bold" color="currentColor" /></span
 		>
-		<p class="font-bold">مجدول رسائل تيليجرام</p>
-		<p>
-			تطوير: <a
+		<p class="font-bold">Telegram 定时消息设置器</p>
+		<p>开发者: <a
 				class="link-primary"
 				href="https://github.com/yshalsager/"
-				aria-label="Github Profile">يوسف شعبان الصغير yshalsager</a
+				aria-label="Github Profile">yshalsager</a
 			>
 		</p>
 	</div>

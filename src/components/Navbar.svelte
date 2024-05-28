@@ -13,7 +13,7 @@
 	import Sun from 'phosphor-svelte/lib/Sun';
 
 	const logOutAndShowToast = () => {
-		showToast('سجل الخروج بنجاح!', logOut);
+		showToast('已注销', logOut);
 	};
 
 	// TODO: Add settings page and clear data button
@@ -21,22 +21,22 @@
 
 <div class="navbar bg-base-100 text-primary border-b-2 mb-5 sticky top-0 z-10">
 	<div class="flex-1">
-		<a href="/" class="md:text-xl sm:text-md font-bold">مجدول رسائل تيليجرام</a>
+		<a href="/" class="md:text-xl sm:text-md font-bold">Telegram 定时消息设置器</a>
 	</div>
 	{#if $isAuthenticated}
-		<span>مرحبا!<strong class="p-1">{$telegramUser.name ?? ''}</strong></span>
+		<span>欢迎!<strong class="p-1">{$telegramUser.name ?? ''}</strong></span>
 	{/if}
 
 	<ul class="menu menu-horizontal bg-base-100 p-2 rounded-box">
 		<li>
 			{#if $isAuthenticated}
 				<!-- svelte-ignore a11y-invalid-attribute -->
-				<a id="signOutBtn" title="تسجيل خروج" href="#" on:click={logOutAndShowToast}>
+				<a id="signOutBtn" title="注销" href="#" on:click={logOutAndShowToast}>
 					<SignOut size={24} weight="bold" />
 				</a>
 			{:else}
 				<a
-					title="تسجيل الدخول"
+					title="登录"
 					href="/login"
 					on:click={() => $page.url.pathname !== '/login' && navigateAndReplaceState('/login')}
 				>
@@ -46,7 +46,7 @@
 		</li>
 		<!-- <li>
 			<a
-				title="اﻹعدادات"
+				title="设置"
 				href="/settings"
 				on:click={() => $page.url.pathname !== '/settings' && navigateAndReplaceState('/settings')}
 			>
@@ -56,7 +56,7 @@
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<li on:click={toggleTheme}>
 			<!-- svelte-ignore a11y-invalid-attribute -->
-			<a title="تبديل المظهر" href="#">
+			<a title="外观" href="#">
 				{#if $theme === 'telegramDark'}
 					<Moon size={24} weight="bold" />
 				{:else}

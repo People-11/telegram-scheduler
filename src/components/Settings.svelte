@@ -1,14 +1,14 @@
 <script>
 	import { switchTheme } from '../lib/theme.js';
 	let themes = [
-		{ value: 'telegram', name: `الوضع الفاتح` },
-		{ value: 'telegramDark', name: `الوضع الداكن` }
+		{ value: 'telegram', name: `日间模式` },
+		{ value: 'telegramDark', name: `夜间模式` }
 	];
 	let selectedTheme;
 </script>
 
 <div class="mt-16 grid grid-cols-2 gap-4">
-	<div class="text-center font-bold">السمة</div>
+	<div class="text-center font-bold">ا属性</div>
 	<div>
 		<select
 			bind:value={selectedTheme}
@@ -22,7 +22,7 @@
 			{/each}
 		</select>
 	</div>
-	<div class="text-center font-bold">تقسيم الملف بالسطر الذي يبدأ ب:</div>
+	<div class="text-center font-bold">分割消息的字符</div>
 	<div>
 		<input
 			type="text"
